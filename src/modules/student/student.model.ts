@@ -63,48 +63,55 @@ const localGaurdianSchema = new Schema<TLocalGaurdian>({
     required: [true, 'The feild is required.'],
   },
 });
-const studentSchema = new Schema<TStudent>({
-  id: {
-    type: String,
+const studentSchema = new Schema<TStudent>(
+  {
+    id: {
+      type: String,
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+      unique: true,
+    },
+    name: userNameSchema,
+    profileImg: { type: String },
+    gender: {
+      type: String,
+      enum: ['male', 'female', 'others'],
+      required: [true, 'The feild is required.'],
+    },
+    dateOfBirth: {
+      type: String,
+      required: [true, 'The feild is required.'],
+    },
+    email: {
+      type: String,
+      required: [true, 'The feild is required.'],
+    },
+    contactNo: {
+      type: String,
+      required: [true, 'The feild is required.'],
+    },
+    emergencyContactNo: {
+      type: String,
+    },
+    bloodGroup: {
+      type: String,
+      enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
+    },
+    presentAddress: {
+      type: String,
+    },
+    parmanentAddress: {
+      type: String,
+    },
+    gaurdian: gaurdianSchema,
+    localGaurdian: localGaurdianSchema,
   },
-  name: userNameSchema,
-  profileImg: { type: String },
-  gender: {
-    type: String,
-    enum: ['male', 'female', 'others'],
-    required: [true, 'The feild is required.'],
+  {
+    timestamps: true,
   },
-  dateOfBirth: {
-    type: String,
-    required: [true, 'The feild is required.'],
-  },
-  email: {
-    type: String,
-    required: [true, 'The feild is required.'],
-  },
-  contactNo: {
-    type: String,
-    required: [true, 'The feild is required.'],
-  },
-  emergencyContactNo: {
-    type: String,
-  },
-  bloodGroup: {
-    type: String,
-    enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
-  },
-  presentAddress: {
-    type: String,
-  },
-  parmanentAddress: {
-    type: String,
-  },
-  gaurdian: gaurdianSchema,
-  localGaurdian: localGaurdianSchema,
-  isActive: {
-    type: String,
-    enum: ['active', 'blocked'],
-  },
-});
+);
 
 export const studentModel = model<TStudent>('Student', studentSchema);

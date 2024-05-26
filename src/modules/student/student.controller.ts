@@ -1,23 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { StudentServices } from './student.service';
 
-const createStudent = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  try {
-    const student = req.body;
-    const result = await StudentServices.createStudentDB(student);
-    res.status(200).json({
-      status: true,
-      message: 'Succesfully student added',
-      data: result,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
+// Get all student Data
 const getAllStudent = async (
   req: Request,
   res: Response,
@@ -34,6 +18,8 @@ const getAllStudent = async (
     next(error);
   }
 };
+
+//Get student by specific ID
 const getStudentById = async (
   req: Request,
   res: Response,
@@ -52,6 +38,8 @@ const getStudentById = async (
     next(error);
   }
 };
+
+//Update student data by specific ID
 const updateStudent = async (
   req: Request,
   res: Response,
@@ -71,6 +59,8 @@ const updateStudent = async (
     next(error);
   }
 };
+
+//Delete student data by specific Id
 const deleteStudent = async (
   req: Request,
   res: Response,
@@ -89,7 +79,6 @@ const deleteStudent = async (
   }
 };
 export const StudentController = {
-  createStudent,
   getAllStudent,
   getStudentById,
   updateStudent,

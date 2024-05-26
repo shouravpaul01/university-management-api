@@ -1,12 +1,6 @@
 import { TStudent } from './student.interface';
 import { studentModel } from './student.model';
 
-//Create Student
-const createStudentDB = async (student: TStudent) => {
-  const result = await studentModel.create(student);
-  return result;
-};
-
 // Get all student Data
 const getAllStudentDB = async () => {
   const result = await studentModel.find({});
@@ -32,7 +26,6 @@ const deleteStudentDB = async (studentId: string) => {
   return result;
 };
 export const StudentServices = {
-  createStudentDB,
   getAllStudentDB,
   getStudentByIdDB,
   updateStudentDB,
