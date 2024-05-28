@@ -67,6 +67,8 @@ const studentSchema = new Schema<TStudent>(
   {
     id: {
       type: String,
+      required: true,
+      unique: true,
     },
     user: {
       type: Schema.Types.ObjectId,
@@ -76,18 +78,23 @@ const studentSchema = new Schema<TStudent>(
     },
     name: userNameSchema,
     profileImg: { type: String },
+    admissionSemester: {
+      type: Schema.Types.ObjectId,
+      ref: 'AcademicSemester',
+    },
     gender: {
       type: String,
       enum: ['male', 'female', 'others'],
-      required: [true, 'The feild is required.'],
+      required: true,
     },
     dateOfBirth: {
       type: String,
-      required: [true, 'The feild is required.'],
+      required: true,
     },
     email: {
       type: String,
-      required: [true, 'The feild is required.'],
+      required: true,
+      unique: true,
     },
     contactNo: {
       type: String,

@@ -32,6 +32,7 @@ const createStudentValidationSchema = z.object({
       }),
     name: userNameValidationSchema,
     profileImg: z.string().url().optional(),
+    admissionSemester: z.string(),
     gender: z.enum(['male', 'female', 'others'], {
       message: 'The field is required.',
     }),

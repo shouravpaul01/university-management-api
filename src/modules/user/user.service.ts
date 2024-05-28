@@ -1,10 +1,11 @@
 import config from '../../app/config';
+import { TAcademicSemester } from '../academicSemester/academicSemester.interface';
+import { academicSemesterModel } from '../academicSemester/academicSemester.model';
 import { TStudent } from '../student/student.interface';
 import { studentModel } from '../student/student.model';
-import { studentValidationSchema } from '../student/student.validation';
 import { TUser } from './user.interface';
 import { userModel } from './user.model';
-import { userValidationSchema } from './user.validation';
+import { generateStudentId } from './user.utils';
 
 //Create Student
 const createStudentDB = async (password: string, studentData: TStudent) => {
@@ -12,13 +13,13 @@ const createStudentDB = async (password: string, studentData: TStudent) => {
 
   //If password isn't given,will set default password
   userData.password = password || config.default_password;
-  userData.id = '202301001';
+
+  const admissionSemester = await academicSemesterModel.findById(
+    studentData.admissionSemester,
+  );
+  userData.id = await generateStudentId(admissionSemester);
   userData.role = 'student';
-  console.log(userData);
-  //Checked validation
-  //   const parseUserData = userValidationSchema.parse(userData);
-  //   console.log(parseUserData);
-  //Create a user
+
   const newUser = await userModel.create(userData);
 
   if (Object.keys(newUser).length) {
