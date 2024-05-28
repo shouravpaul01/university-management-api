@@ -3,6 +3,7 @@ import cors from 'cors';
 import { StudentRoutes } from './modules/student/student.route';
 import { globalErrorHandler } from './middlewares/globalErrorHandler';
 import { UserRoutes } from './modules/user/user.route';
+import { notFound } from './middlewares/notFound';
 
 const app: Application = express();
 
@@ -13,10 +14,12 @@ app.use(cors());
 app.use('/api/v1/students', StudentRoutes);
 app.use('/api/v1/users', UserRoutes);
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+// app.get('/', (req, res) => {
+//   res.send('Hello World!');
+// });
 //handle Errors
 app.use(globalErrorHandler);
+//Api not found handler
+app.use(notFound);
 
 export default app;

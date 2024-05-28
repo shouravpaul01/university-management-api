@@ -19,16 +19,16 @@ const createStudentDB = async (password: string, studentData: TStudent) => {
   //   const parseUserData = userValidationSchema.parse(userData);
   //   console.log(parseUserData);
   //Create a user
-  const userResult = await userModel.create(userData);
+  const newUser = await userModel.create(userData);
 
-  if (Object.keys(userResult).length) {
-    studentData.id = userResult.id;
-    studentData.user = userResult._id;
+  if (Object.keys(newUser).length) {
+    studentData.id = newUser.id;
+    studentData.user = newUser._id;
 
     //Checked Validation
     // const studentParseData = studentValidationSchema.parse(studentData);
-    const studentResult = await studentModel.create(studentData);
-    return studentResult;
+    const newStudent = await studentModel.create(studentData);
+    return newStudent;
   }
 };
 
