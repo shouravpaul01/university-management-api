@@ -5,6 +5,7 @@ import { globalErrorHandler } from './middlewares/globalErrorHandler';
 import { UserRoutes } from './modules/user/user.route';
 import { notFound } from './middlewares/notFound';
 import { AcademicSemesterRoutes } from './modules/academicSemester/academicSemester.route';
+import { AcademicFacultyRoutes } from './modules/academicFaculty/academicFaculty.route';
 
 const app: Application = express();
 
@@ -15,6 +16,7 @@ app.use(cors());
 app.use('/api/v1/students', StudentRoutes);
 app.use('/api/v1/users', UserRoutes);
 app.use('/api/v1/academic-semester', AcademicSemesterRoutes);
+app.use('/api/v1/academic-faculty', AcademicFacultyRoutes);
 
 // app.get('/', (req, res) => {
 //   res.send('Hello World!');
