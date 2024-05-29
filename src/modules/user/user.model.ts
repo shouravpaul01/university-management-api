@@ -51,4 +51,4 @@ userSchema.post('save', async function (doc, next) {
   doc.password = '';
   next();
 });
-export const userModel = model('User', userSchema);
+export const User = model('User', userSchema);

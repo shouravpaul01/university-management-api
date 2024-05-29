@@ -12,9 +12,9 @@ router.post(
   AcademicSemesterController.createAcademicSemester,
 );
 router.get('/', AcademicSemesterController.getAllAcademicSemester);
-router.get('/:id', AcademicSemesterController.getAcademicSemesterById);
+router.get('/:semesterId', AcademicSemesterController.getAcademicSemesterById);
 router.patch(
-  '/:id',
+  '/:semesterId',
   validateSchema(
     AcademicSemesterValidation.updateAcademicSemesterValidationSchema,
   ),
