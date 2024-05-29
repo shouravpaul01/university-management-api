@@ -18,6 +18,9 @@ router.get(
 );
 router.patch(
   '/:departmentId',
+  validateSchema(
+    AcademicDepartmentValidation.updateAcademicDeratmentValidation,
+  ),
   AcademicDepartmentControllers.updateAcademicDeratment,
 );
 

@@ -25,6 +25,7 @@ export type TStudent = {
   name: TUserName;
   profileImg: string;
   admissionSemester: Types.ObjectId;
+  academicDepartment: Types.ObjectId;
   gender: 'male' | 'female' | 'others';
   dateOfBirth: string;
   email: string;

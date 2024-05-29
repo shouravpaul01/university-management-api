@@ -9,8 +9,31 @@ const acedemicDepartmentSchema = new Schema<TAcademicDerpartment>({
   },
   academicFaculty: {
     type: Schema.Types.ObjectId,
-    ref: 'AcademicFacultie',
+    ref: 'AcademicFaculty',
   },
+});
+
+//Before create department,Check Unique department name
+acedemicDepartmentSchema.pre('save', async function (next) {
+  const isDepartentExists = await AcademicDepartment.findOne({
+    name: this.name,
+  });
+  if (isDepartentExists) {
+    throw new Error('Already The Department is Exists.');
+  }
+  next();
+});
+
+//Before update department,check department id
+acedemicDepartmentSchema.pre('findOneAndUpdate', async function (next) {
+  const query = this.getQuery();
+  console.log(query);
+  const isDepartentExists = await AcademicDepartment.findOne(query);
+  console.log(isDepartentExists);
+  if (!isDepartentExists) {
+    throw new Error('The Department dose not Exists.');
+  }
+  next();
 });
 export const AcademicDepartment = model<TAcademicDerpartment>(
   'AcademicDepartment',
