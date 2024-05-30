@@ -5,6 +5,8 @@ import {
   TStudent,
   TUserName,
 } from './student.interface';
+import AppError from '../../errors/AppError';
+import httpStatus from 'http-status';
 
 const userNameSchema = new Schema<TUserName>({
   firstName: {
@@ -124,5 +126,23 @@ const studentSchema = new Schema<TStudent>(
     timestamps: true,
   },
 );
+studentSchema.pre('save', async function (next) {
+  const isEmailExists = await Student.findOne({ email: this.email });
 
+  if (isEmailExists) {
+    throw new AppError(httpStatus.BAD_REQUEST, 'The Email already exists.');
+  }
+  next();
+});
+//Before update Faculty,check department id
+studentSchema.pre('findOneAndUpdate', async function (next) {
+  const query = this.getQuery();
+
+  const isDepartentExists = await Student.findOne(query);
+  if (!isDepartentExists) {
+    console.log(query);
+    throw new AppError(httpStatus.NOT_FOUND, 'Student dose not Exists.');
+  }
+  next();
+});
 export const Student = model<TStudent>('Student', studentSchema);

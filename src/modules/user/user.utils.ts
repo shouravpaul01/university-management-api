@@ -5,7 +5,6 @@ const findLastStudentId = async () => {
   const lastStudent = await User.findOne({ role: 'student' }, { id: 1, _id: 0 })
     .sort({ createdAt: -1 })
     .lean();
-  console.log(lastStudent);
   return lastStudent?.id ? lastStudent?.id : undefined;
 };
 
@@ -17,13 +16,7 @@ export const generateStudentId = async (payload: TAcademicSemester | null) => {
   const lastStudentSemesterYear = lastStudentId?.substring(0, 4);
   const currentStudentSemesterCode = payload?.code;
   const currentStudentSemesterYear = payload?.year;
-  console.log(
-    lastStudentId,
-    lastStudentSemesterCode,
-    lastStudentSemesterYear,
-    currentStudentSemesterCode,
-    currentStudentSemesterYear,
-  );
+
   //Check same semester and same year
   if (
     lastStudentId &&
@@ -36,6 +29,6 @@ export const generateStudentId = async (payload: TAcademicSemester | null) => {
   let incrementId = (Number(currentId) + 1).toString().padStart(4, '0');
 
   incrementId = `${payload?.year}${payload?.code}${incrementId}`;
-  console.log(currentId, incrementId);
+
   return incrementId;
 };

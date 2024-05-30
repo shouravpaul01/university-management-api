@@ -50,39 +50,33 @@ const updateLocalGaurdianValidationSchema = z.object({
 });
 const createStudentValidationSchema = z.object({
   body: z.object({
-    user: z
-      .string({ required_error: 'The field is required.' })
-      .refine((id) => Types.ObjectId.isValid(id), {
-        message: 'Invalid ObjectId',
+    password: z.string(),
+    student: z.object({
+      user: z.string().optional(),
+      name: userNameValidationSchema,
+      profileImg: z.string().url().optional(),
+      admissionSemester: z.string(),
+      academicDepartment: z.string(),
+      gender: z.enum(['male', 'female', 'others'], {
+        message: 'The field is required.',
       }),
-    name: userNameValidationSchema,
-    profileImg: z.string().url().optional(),
-    admissionSemester: z.string(),
-    academicDepartment: z.string(),
-    gender: z.enum(['male', 'female', 'others'], {
-      message: 'The field is required.',
+      dateOfBirth: z.string({ required_error: 'The field is required.' }),
+      email: z.string().email({ message: 'The field is required.' }),
+      contactNo: z.string({ required_error: 'The field is required.' }),
+      emergencyContactNo: z.string().optional(),
+      bloodGroup: z
+        .enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])
+        .optional(),
+      presentAddress: z.string({ required_error: 'The field is required.' }),
+      parmanentAddress: z.string({ required_error: 'The field is required.' }),
+      gaurdian: gaurdianValidationSchema,
+      localGaurdian: localGaurdianValidationSchema,
     }),
-    dateOfBirth: z.string({ required_error: 'The field is required.' }),
-    email: z.string().email({ message: 'The field is required.' }),
-    contactNo: z.string({ required_error: 'The field is required.' }),
-    emergencyContactNo: z.string().optional(),
-    bloodGroup: z
-      .enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])
-      .optional(),
-    presentAddress: z.string({ required_error: 'The field is required.' }),
-    parmanentAddress: z.string({ required_error: 'The field is required.' }),
-    gaurdian: gaurdianValidationSchema,
-    localGaurdian: localGaurdianValidationSchema,
   }),
 });
 const updateStudentValidationSchema = z.object({
   body: z.object({
-    user: z
-      .string({ required_error: 'The field is required.' })
-      .refine((id) => Types.ObjectId.isValid(id), {
-        message: 'Invalid ObjectId',
-      })
-      .optional(),
+    user: z.string().optional(),
     name: updatUserNameValidationSchema,
     profileImg: z.string().url().optional(),
     admissionSemester: z.string().optional(),
@@ -92,27 +86,20 @@ const updateStudentValidationSchema = z.object({
         message: 'The field is required.',
       })
       .optional(),
-    dateOfBirth: z
-      .string({ required_error: 'The field is required.' })
-      .optional(),
-    email: z.string().email({ message: 'The field is required.' }).optional(),
-    contactNo: z
-      .string({ required_error: 'The field is required.' })
-      .optional(),
+    dateOfBirth: z.string().optional(),
+    email: z.string().email().optional(),
+    contactNo: z.string().optional(),
     emergencyContactNo: z.string().optional(),
     bloodGroup: z
       .enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])
       .optional(),
-    presentAddress: z
-      .string({ required_error: 'The field is required.' })
-      .optional(),
-    parmanentAddress: z
-      .string({ required_error: 'The field is required.' })
-      .optional(),
-    gaurdian: updateGaurdianValidationSchema,
-    localGaurdian: updateLocalGaurdianValidationSchema,
+    presentAddress: z.string().optional(),
+    parmanentAddress: z.string().optional(),
+    gaurdian: updateGaurdianValidationSchema.optional(),
+    localGaurdian: updateLocalGaurdianValidationSchema.optional(),
   }),
 });
 export const StudentValidations = {
   createStudentValidationSchema,
+  updateStudentValidationSchema,
 };

@@ -38,7 +38,6 @@ const academicSemesterSchema = new Schema<TAcademicSemester>(
 
 //Check if the semester exists before creating the data.
 academicSemesterSchema.pre('save', async function (next) {
-  console.log(this);
   const isSemesterExists = await AcademicSemester.findOne({
     name: this.name,
     year: this.year,
