@@ -1,12 +1,12 @@
 import express, { Application } from 'express';
 import cors from 'cors';
-import { StudentRoutes } from './modules/student/student.route';
-import { globalErrorHandler } from './middlewares/globalErrorHandler';
-import { UserRoutes } from './modules/user/user.route';
-import { notFound } from './middlewares/notFound';
-import { AcademicSemesterRoutes } from './modules/academicSemester/academicSemester.route';
-import { AcademicFacultyRoutes } from './modules/academicFaculty/academicFaculty.route';
-import { AcademicDepartmentRoutes } from './modules/academicDepartment/academicDepartment.route';
+import { StudentRoutes } from './app/modules/student/student.route';
+import { globalErrorHandler } from './app/middlewares/globalErrorHandler';
+import { UserRoutes } from './app/modules/user/user.route';
+import { notFound } from './app/middlewares/notFound';
+import { AcademicSemesterRoutes } from './app/modules/academicSemester/academicSemester.route';
+import { AcademicFacultyRoutes } from './app/modules/academicFaculty/academicFaculty.route';
+import { AcademicDepartmentRoutes } from './app/modules/academicDepartment/academicDepartment.route';
 
 const app: Application = express();
 

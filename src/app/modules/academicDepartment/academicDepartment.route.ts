@@ -11,6 +11,7 @@ router.post(
   ),
   AcademicDepartmentControllers.createAcademicDeratment,
 );
+
 router.get('/', AcademicDepartmentControllers.getAllAcademicDeratments);
 router.get(
   '/:departmentId',

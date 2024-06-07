@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import config from '../../app/config';
+import config from '../../config';
 import { TAcademicSemester } from '../academicSemester/academicSemester.interface';
 import { AcademicSemester } from '../academicSemester/academicSemester.model';
 import { TStudent } from '../student/student.interface';
