@@ -6,8 +6,18 @@ import AppError from '../../errors/AppError';
 import httpStatus from 'http-status';
 
 // Get all student Data
-const getAllStudentDB = async () => {
-  const result = await Student.find({})
+const getAllStudentDB = async (query: Record<string, unknown>) => {
+  console.log(query);
+  const queryObj = { ...query };
+  let searchTerm = '';
+  if (query.searchTerm) {
+    searchTerm = query.searchTerm as string;
+  }
+  const searchQuery = Student.find({
+    $or: ['email', 'name.firstName', 'presentAddress'].map((element) => ({
+      [element]: { $regex: searchTerm, $options: 'i' },
+    })),
+  })
     .populate('admissionSemester')
     .populate({
       path: 'academicDepartment',
@@ -15,7 +25,29 @@ const getAllStudentDB = async () => {
         path: 'academicFaculty',
       },
     });
-  return result;
+  const excludeFelid = ['searchTerm', 'sort', 'page', 'limit'];
+  excludeFelid.forEach((element) => delete queryObj[element]);
+  const filterQuery = searchQuery.find(queryObj);
+
+  let sort = '-createdAt';
+  if (query.sort) {
+    sort = query.sort as string;
+  }
+  const sortQuery = filterQuery.sort(sort);
+
+  let page = 1;
+  let limit = 1;
+  let skip = 0;
+  if (query.limit) {
+    limit = Number(query.limit);
+  }
+  if (query.page) {
+    page = Number(query.page);
+    skip = (page - 1) * limit;
+  }
+  const paginateQuery = sortQuery.skip(skip);
+  const limitQuery = await paginateQuery.limit(limit);
+  return limitQuery;
 };
 
 //Get student by specific ID
