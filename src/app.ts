@@ -8,6 +8,7 @@ import { AcademicSemesterRoutes } from './app/modules/academicSemester/academicS
 import { AcademicFacultyRoutes } from './app/modules/academicFaculty/academicFaculty.route';
 import { AcademicDepartmentRoutes } from './app/modules/academicDepartment/academicDepartment.route';
 import { FacultyRoutes } from './app/modules/faculty/faculty.route';
+import { CourseRoutes } from './app/modules/course/course.route';
 
 const app: Application = express();
 
@@ -21,6 +22,7 @@ app.use('/api/v1/academic-semester', AcademicSemesterRoutes);
 app.use('/api/v1/academic-faculty', AcademicFacultyRoutes);
 app.use('/api/v1/academic-department', AcademicDepartmentRoutes);
 app.use('/api/v1/faculties', FacultyRoutes);
+app.use('/api/v1/courses', CourseRoutes);
 
 // app.get('/', (req, res) => {
 //   res.send('Hello World!');
